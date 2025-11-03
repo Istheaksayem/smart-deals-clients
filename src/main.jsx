@@ -9,6 +9,8 @@ import RootLayout from './Layout/RootLayout.jsx';
 import Home from './comlponent/Home/Home.jsx';
 import AllProducts from './comlponent/AllProducts/AllProducts.jsx';
 import AuthProvider from './Context/AuthProvider.jsx';
+import Login from './comlponent/Login/Login.jsx';
+import Register from './comlponent/Register/Register.jsx';
 
 
 const router = createBrowserRouter([
@@ -23,7 +25,15 @@ const router = createBrowserRouter([
       {
         path:'allProducts',
         Component:AllProducts
-      }
+      },
+      {
+        path:'/login',
+        Component:Login,
+      },
+      {
+        path:'/register',
+        Component:Register,
+      },
     ]
    
   },
