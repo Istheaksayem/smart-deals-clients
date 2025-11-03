@@ -37,6 +37,8 @@ const Login = () => {
         signInWithPopup(auth, googleProvider)
             .then(result => {
                 console.log(result.user)
+
+
             })
             .catch(error => {
                 console.log(error)
