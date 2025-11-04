@@ -8,3 +8,12 @@
   --color-primary: #632EE3;
   --color-secondary: teal;
 }
+
+
+.btn-primary {
+  background-image:linear-gradient(to right, #9F62F2, #632EE3);
+  background-color: transparent; /* fallback */
+  border: none;
+}
+
+
