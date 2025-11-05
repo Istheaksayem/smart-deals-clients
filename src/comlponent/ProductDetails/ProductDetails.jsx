@@ -194,7 +194,7 @@ const ProductDetails = () => {
             </div>
             <div>
                 <h3 className="text 5xl font-bold"> Bids For This Products: <span className='text-primary'>{bids.length}</span></h3>
-                <div className="overflow-x-auto">
+                <div className=" w-full">
                     <table className="table">
                         {/* head */}
                         <thead>
@@ -226,7 +226,7 @@ const ProductDetails = () => {
                                         </div>
                                         <div>
                                             <div className="font-bold">{bid.buyer_name}</div>
-                                            <div className="text-sm opacity-50">United States</div>
+                                           
                                         </div>
                                     </div>
                                 </td>
