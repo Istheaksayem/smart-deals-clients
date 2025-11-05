@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 const ProductDetails = () => {
     const product = useLoaderData()
     const { _id: productId } = useLoaderData();
-    const [bids,setBids]=useState([]);
+    const [bids, setBids] = useState([]);
 
 
 
@@ -14,14 +14,14 @@ const ProductDetails = () => {
 
     const { user } = use(AuthContext)
 
-    useEffect(()=>{
+    useEffect(() => {
         fetch(`http://localhost:3000/productS/bids/${productId}`)
-        .then(res =>res.json())
-        .then(data =>{
-            console.log('bids for the product',data)
-            setBids(data)
-        })
-    },[productId])
+            .then(res => res.json())
+            .then(data => {
+                console.log('bids for the product', data)
+                setBids(data)
+            })
+    }, [productId])
 
     console.log(product)
 
@@ -39,6 +39,8 @@ const ProductDetails = () => {
             product: productId,
             buyer_name: name,
             buyer_email: email,
+            buyer_image: user?.photoURL,
+
             bid_price: bid,
             status: 'pending'
 
@@ -61,6 +63,12 @@ const ProductDetails = () => {
                         showConfirmButton: false,
                         timer: 1500
                     });
+
+                    // add the new bid to the state
+                    newBid._id =data.insertedId;
+                    const newBids =[...bids,newBid];
+                    newBids.sort((a,b) =>b.bid_price -a.bid_price)
+                    setBids(newBids)
                 }
             })
     }
@@ -186,6 +194,56 @@ const ProductDetails = () => {
             </div>
             <div>
                 <h3 className="text 5xl font-bold"> Bids For This Products: <span className='text-primary'>{bids.length}</span></h3>
+                <div className="overflow-x-auto">
+                    <table className="table">
+                        {/* head */}
+                        <thead>
+                            <tr>
+                                <th>
+                                  SL NO.
+                                </th>
+                                <th>Buyer Name</th>
+                                <th>Buyer Email</th>
+                                <th>Bid Price</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {/* row 1 */}
+                          {
+                            bids.map((bid,index) =>  <tr>
+                                <th>
+                                  {index + 1}
+                                </th>
+                                <td>
+                                    <div className="flex items-center gap-3">
+                                        <div className="avatar">
+                                            <div className="mask mask-squircle h-12 w-12">
+                                                <img
+                                                    src="https://img.daisyui.com/images/profile/demo/2@94.webp"
+                                                    alt="Avatar Tailwind CSS Component" />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div className="font-bold">{bid.buyer_name}</div>
+                                            <div className="text-sm opacity-50">United States</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    {bid.buyer_email}
+                                </td>
+                                <td>{bid.bid_price}</td>
+                                <th>
+                                    <button className="btn btn-ghost btn-xs">details</button>
+                                </th>
+                            </tr>)
+                          }
+                     
+                        </tbody>
+                    
+                    </table>
+                </div>
             </div>
         </div>
     );
